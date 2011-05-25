@@ -7,6 +7,7 @@ class Paciente {
     String apellidoMaterno
     Date fechaNacimiento
     Boolean esHombre = true
+    String correo
     Date dateCreated
     Date lastUpdated
 
@@ -17,6 +18,7 @@ class Paciente {
         apellidoMaterno(maxSize:64,blank:false)
         fechaNacimiento()
         esHombre()
+        correo(maxSize:128,nullable:true)
     }
 
     String toString() {
