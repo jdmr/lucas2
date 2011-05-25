@@ -1,6 +1,7 @@
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
+grails.config.locations = [ "file:${userHome}/.grails/${appName}-config.groovy" ]
 // grails.config.locations = [ "classpath:${appName}-config.properties",
 //                             "classpath:${appName}-config.groovy",
 //                             "file:${userHome}/.grails/${appName}-config.properties",
@@ -87,4 +88,11 @@ log4j = {
            'net.sf.ehcache.hibernate'
 
     warn   'org.mortbay.log'
+
+    debug  'grails.app.app'
+}
+
+grails.gorm.default.mapping = {
+   cache true
+   id generator:'identity'
 }
