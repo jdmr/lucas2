@@ -86,6 +86,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${examenFisicoInstance?.consulta}">
+				<li class="fieldcontain">
+					<span id="consulta-label" class="property-label"><g:message code="examenFisico.consulta.label" default="Consulta" /></span>
+					
+						<span class="property-value" aria-labelledby="consulta-label"><g:link controller="consulta" action="show" id="${examenFisicoInstance?.consulta?.id}">${examenFisicoInstance?.consulta?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${examenFisicoInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="examenFisico.lastUpdated.label" default="Last Updated" /></span>

@@ -17,4 +17,8 @@ class Doctor {
         especialidades(nullable:true)
         correo(maxSize:128,nullable:true)
     }
+
+    String toString() {
+        return "$cedula : $apellidoPaterno, $nombre"
+    }
 }

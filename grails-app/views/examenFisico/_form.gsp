@@ -15,7 +15,7 @@
 		<g:message code="examenFisico.talla.label" default="Talla" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field type="number" name="talla" required="" value="${fieldValue(bean: examenFisicoInstance, field: 'talla')}" />
+	<g:field type="number" name="talla" required="" value="${fieldValue(bean: examenFisicoInstance, field: 'talla')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: examenFisicoInstance, field: 'respiraciones', 'error')} required">
@@ -48,6 +48,14 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:field type="number" name="presionDiastolica" required="" value="${fieldValue(bean: examenFisicoInstance, field: 'presionDiastolica')}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: examenFisicoInstance, field: 'consulta', 'error')} required">
+	<label for="consulta">
+		<g:message code="examenFisico.consulta.label" default="Consulta" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="consulta" name="consulta.id" from="${app.Consulta.list()}" optionKey="id" required="" value="${examenFisicoInstance?.consulta?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: examenFisicoInstance, field: 'paciente', 'error')} required">

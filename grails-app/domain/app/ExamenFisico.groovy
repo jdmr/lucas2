@@ -10,8 +10,9 @@ class ExamenFisico {
     Date dateCreated
     Date lastUpdated
     Paciente paciente
+    Consulta consulta
 
-    static belongsTo = Paciente
+    static belongsTo = [Paciente, Consulta]
 
     static constraints = {
         peso(scale:3, precision:8)

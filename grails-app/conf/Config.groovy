@@ -89,7 +89,9 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    debug  'grails.app.app'
+    //debug  'grails.app'
+    info   'grails.app'
+
 }
 
 grails.gorm.default.mapping = {
