@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'consulta.label', default: 'Consulta')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'token-input.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'token-input.css')}" type="text/css"/>
 	    <!-- JavaScript at the bottom for fast page loading -->
         <!-- Grab Google CDNs jQuery, with a protocol relative URL; fall back to local if offline -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
