@@ -16,7 +16,7 @@
 			</ul>
 		</div>
 		<div id="list-doctor" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1><g:message code="default.list.label.doctor" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -42,7 +42,7 @@
 				<g:each in="${doctors}" status="i" var="doctor">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${doctor.id}">${fieldValue(bean: doctor, field: "cedula")}</g:link></td>
+						<td><g:link action="ver" id="${doctor.id}">${fieldValue(bean: doctor, field: "cedula")}</g:link></td>
 					
 						<td>${fieldValue(bean: doctor, field: "nombre")}</td>
 					

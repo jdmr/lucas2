@@ -5,13 +5,14 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'doctor.label', default: 'Doctor')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+                <script src="${resource(dir:'js/libs',file:'jquery-1.6.1.min.js')}"></script>
 	</head>
 	<body>
 		<a href="#create-doctor" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="lista"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="lista"><g:message code="default.list.label.doctor" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="create-doctor" class="content scaffold-create" role="main">
@@ -37,7 +38,7 @@
 		</div>
                 <script type="text/javascript">
                 $(document).ready(function() {
-                  $('input#expediente').focus();
+                  $('input#cedula').focus();
                 });
                 </script>
 	</body>
