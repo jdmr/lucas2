@@ -7,7 +7,7 @@
 		<g:message code="examenFisico.peso.label" default="Peso" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field type="number" name="peso" required="" value="${fieldValue(bean: examenFisicoInstance, field: 'peso')}" min="0.000" step="0.001" />
+	<g:field type="number" name="peso" required="" value="${fieldValue(bean: examenFisicoInstance, field: 'peso')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: examenFisicoInstance, field: 'talla', 'error')} required">
