@@ -3,7 +3,7 @@ package app
 import grails.converters.JSON
 
 class TratamientoController {
-
+    
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -12,95 +12,91 @@ class TratamientoController {
 
     def lista = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [pacientes: Paciente.list(params), totalDePacientes: Paciente.count()]
+        [tratamientos: Tratamiento.list(params), totalDeTratamientos: Tratamiento.count()]
     }
 
     def nuevo = {
-        def paciente = new Paciente()
-        paciente.properties = params
-        return [paciente: paciente]
+        def tratamiento = new Tratamiento()
+        tratamiento.properties = params
+        return [tratamiento: tratamiento]
     }
 
     def crea = {
-        def paciente = new Paciente(params)
-        if (paciente.save(flush: true)) {
-            flash.message = message(code: 'default.created.message', args: [message(code: 'paciente.label', default: 'Paciente'), paciente.id])
-            redirect(action: "ver", id: paciente.id)
+        def tratamiento = new Tratamiento(params)
+        if (tratamiento.save(flush: true)) {
+            flash.message = message(code: 'default.created.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), tratamiento.id])
+            redirect(action: "ver", id: tratamiento.id)
         }
         else {
-            log.debug("Hubo errores al intentar crear el paciente ${paciente.errors}")
-            render(view: "nuevo", model: [paciente: paciente])
+            log.debug("Hubo errores al intentar crear al diagnostico ${tratamiento.errors}")
+            render(view: "nuevo", model: [tratamiento: tratamiento])
         }
     }
 
     def ver = {
-        def paciente = Paciente.get(params.id)
-        if (!paciente) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+        def tratamiento = Tratamiento.get(params.id)
+        if (!tratamiento) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
             redirect(action: "lista")
         }
         else {
-            [paciente: paciente]
+            [tratamiento: tratamiento]
         }
     }
 
     def edita = {
-        def paciente = Paciente.get(params.id)
-        if (!paciente) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+        def tratamiento = Tratamiento.get(params.id)
+        if (!tratamiento) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
             redirect(action: "lista")
         }
         else {
-            return [paciente: paciente]
+            return [tratamiento: tratamiento]
         }
     }
 
     def actualiza = {
-        log.info("Actualizando paciente")
-        def paciente = Paciente.get(params.id)
-        if (paciente) {
+        def tratamiento = Tratamiento.get(params.id)
+        if (tratamiento) {
             if (params.version) {
                 def version = params.version.toLong()
-                if (paciente.version > version) {
+                if (tratamiento.version > version) {
 
-                    paciente.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'paciente.label', default: 'Paciente')] as Object[], "Another user has updated this Paciente while you were editing")
-                    render(view: "edita", model: [paciente: paciente])
+                    tratamiento.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'tratamiento.label', default: 'Tratamiento')] as Object[], "Another user has updated this diagnostic while you were editing")
+                    render(view: "edita", model: [tratamiento: tratamiento])
                     return
                 }
             }
-            log.info("Pasando propiedades")
-            paciente.properties = params
-            if (!paciente.hasErrors() && paciente.save(flush: true)) {
-                log.info("Se ha actualizado redireccionando a ver")
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'paciente.label', default: 'Paciente'), paciente.id])
-                redirect(action: "ver", id: paciente.id)
+            tratamiento.properties = params
+            if (!tratamiento.hasErrors() && tratamiento.save(flush: true)) {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), tratamiento.id])
+                redirect(action: "ver", id: tratamiento.id)
             }
             else {
-                log.error("Hubo algun error ${paciente.errors}")
-                render(view: "edita", model: [paciente: paciente])
+                render(view: "edita", model: [tratamiento: tratamiento])
             }
         }
         else {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
             redirect(action: "lista")
         }
     }
 
     def elimina = {
-        def paciente = Paciente.get(params.id)
-        if (paciente) {
+        def tratamiento = Tratamiento.get(params.id)
+        if (tratamiento) {
             try {
-                paciente.delete(flush: true)
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+                tratamiento.delete(flush: true)
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
                 redirect(action: "lista")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+                flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
                 redirect(action: "ver", id: params.id)
             }
         }
         else {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'paciente.label', default: 'Paciente'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'tratamiento.label', default: 'Tratamiento'), params.id])
             redirect(action: "lista")
         }
     }
