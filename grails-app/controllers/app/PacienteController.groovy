@@ -56,6 +56,7 @@ class PacienteController {
     }
 
     def actualiza = {
+        log.info("Actualizando paciente")
         def paciente = Paciente.get(params.id)
         if (paciente) {
             if (params.version) {
@@ -67,12 +68,15 @@ class PacienteController {
                     return
                 }
             }
+            log.info("Pasando propiedades")
             paciente.properties = params
             if (!paciente.hasErrors() && paciente.save(flush: true)) {
+                log.info("Se ha actualizado redireccionando a ver")
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'paciente.label', default: 'Paciente'), paciente.id])
                 redirect(action: "ver", id: paciente.id)
             }
             else {
+                log.error("Hubo algun error ${paciente.errors}")
                 render(view: "edita", model: [paciente: paciente])
             }
         }
