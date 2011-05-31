@@ -1,28 +1,28 @@
-<%@ page import="app.Paciente" %>
+<%@ page import="app.Sintoma" %>
 <!doctype html>
 <html>
   <head>
     <meta name="layout" content="main">
-  <g:set var="entityName" value="${message(code: 'paciente.label', default: 'Paciente')}" />
+  <g:set var="entityName" value="${message(code: 'sintoma.label', default: 'Sintoma')}" />
   <title><g:message code="default.create.label" args="[entityName]" /></title>
   <script src="${resource(dir:'js/libs',file:'jquery-1.6.1.min.js')}"></script>
 </head>
 <body>
-  <a href="#create-paciente" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+  <a href="#create-sintoma" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
   <div class="nav" role="navigation">
     <ul>
       <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
       <li><g:link class="list" action="lista"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
     </ul>
   </div>
-  <div id="create-paciente" class="content scaffold-create" role="main">
+  <div id="create-sintoma" class="content scaffold-create" role="main">
     <h1><g:message code="default.create.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
       <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <g:hasErrors bean="${paciente}">
+    <g:hasErrors bean="${sintoma}">
       <ul class="errors" role="alert">
-        <g:eachError bean="${paciente}" var="error">
+        <g:eachError bean="${sintoma}" var="error">
           <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
         </g:eachError>
       </ul>
@@ -37,8 +37,8 @@
     </g:form>
   </div>
   <script type="text/javascript">
-  $(document).ready(function() {
-$('input#expediente').focus();
+     $(document).ready(function() {
+$('input#nombre').focus();
 });
 </script>
 </body>
