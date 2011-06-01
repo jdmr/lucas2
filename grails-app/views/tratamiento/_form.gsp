@@ -49,12 +49,3 @@
   </label>
   <g:datePicker name="termina" precision="day" value="${tratamiento?.termina}" default="none" noSelection="['': '']" />
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: tratamiento, field: 'consulta', 'error')} required">
-  <label for="consulta">
-    <g:message code="tratamiento.consulta.label" default="Consulta" />
-    <span class="required-indicator">*</span>
-  </label>
-  <g:select id="consulta" name="consulta.id" from="${app.Consulta.list()}" optionKey="id" required="" value="${tratamiento?.consulta?.id}" class="many-to-one"/>
-</div>
-

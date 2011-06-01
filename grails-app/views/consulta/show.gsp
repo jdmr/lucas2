@@ -32,15 +32,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${consultaInstance?.examenFisico}">
-				<li class="fieldcontain">
-					<span id="examenFisico-label" class="property-label"><g:message code="consulta.examenFisico.label" default="Examen Fisico" /></span>
-					
-						<span class="property-value" aria-labelledby="examenFisico-label"><g:link controller="examenFisico" action="show" id="${consultaInstance?.examenFisico?.id}">${consultaInstance?.examenFisico?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${consultaInstance?.sintomas}">
 				<li class="fieldcontain">
 					<span id="sintomas-label" class="property-label"><g:message code="consulta.sintomas.label" default="Sintomas" /></span>
@@ -92,11 +83,31 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${consultaInstance?.examenFisicos}">
+				<li class="fieldcontain">
+					<span id="examenFisicos-label" class="property-label"><g:message code="consulta.examenFisicos.label" default="Examen Fisicos" /></span>
+					
+						<g:each in="${consultaInstance.examenFisicos}" var="e">
+						<span class="property-value" aria-labelledby="examenFisicos-label"><g:link controller="examenFisico" action="show" id="${e.id}">${e?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${consultaInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="consulta.lastUpdated.label" default="Last Updated" /></span>
 					
 						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${consultaInstance?.lastUpdated}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${consultaInstance?.paciente}">
+				<li class="fieldcontain">
+					<span id="paciente-label" class="property-label"><g:message code="consulta.paciente.label" default="Paciente" /></span>
+					
+						<span class="property-value" aria-labelledby="paciente-label"><g:link controller="paciente" action="show" id="${consultaInstance?.paciente?.id}">${consultaInstance?.paciente?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

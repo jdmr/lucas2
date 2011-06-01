@@ -26,13 +26,13 @@
 					
 						<g:sortableColumn property="descripcion" title="${message(code: 'consulta.descripcion.label', default: 'Descripcion')}" />
 					
-						<th><g:message code="consulta.examenFisico.label" default="Examen Fisico" /></th>
-					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'consulta.dateCreated.label', default: 'Date Created')}" />
 					
 						<th><g:message code="consulta.doctor.label" default="Doctor" /></th>
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'consulta.lastUpdated.label', default: 'Last Updated')}" />
+					
+						<th><g:message code="consulta.paciente.label" default="Paciente" /></th>
 					
 					</tr>
 				</thead>
@@ -42,13 +42,13 @@
 					
 						<td><g:link action="show" id="${consultaInstance.id}">${fieldValue(bean: consultaInstance, field: "descripcion")}</g:link></td>
 					
-						<td>${fieldValue(bean: consultaInstance, field: "examenFisico")}</td>
-					
 						<td><g:formatDate date="${consultaInstance.dateCreated}" /></td>
 					
 						<td>${fieldValue(bean: consultaInstance, field: "doctor")}</td>
 					
 						<td><g:formatDate date="${consultaInstance.lastUpdated}" /></td>
+					
+						<td>${fieldValue(bean: consultaInstance, field: "paciente")}</td>
 					
 					</tr>
 				</g:each>

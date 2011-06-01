@@ -58,3 +58,19 @@
 	<g:textField name="correo" maxlength="128" value="${paciente?.correo}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: paciente, field: 'consulta', 'error')} ">
+	<label for="consulta">
+		<g:message code="paciente.consulta.label" default="Consulta" />
+
+	</label>
+
+<ul class="one-to-many">
+<g:each in="${paciente?.consulta?}" var="c">
+    <li><g:link controller="consulta" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="consulta" action="create" params="['paciente.id': paciente?.id]">${message(code: 'default.add.label', args: [message(code: 'paciente.consulta.label', default: 'Consulta')])}</g:link>
+</li>
+</ul>
+
+</div>

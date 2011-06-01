@@ -4,7 +4,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: doctor, field: 'cedula', 'error')} required">
 	<label for="cedula">
-		<g:message code="doctor.cedula.label" default="Cédula" />
+		<g:message code="doctor.cedula.label" default="Cedula" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="cedula" maxlength="64" required="" value="${doctor?.cedula}"/>
@@ -48,5 +48,22 @@
 		
 	</label>
 	<g:textField name="correo" maxlength="128" value="${doctor?.correo}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: doctor, field: 'consulta', 'error')} ">
+	<label for="consulta">
+		<g:message code="doctor.consulta.label" default="Consulta" />
+		
+	</label>
+	
+<ul class="one-to-many">
+<g:each in="${doctor?.consulta?}" var="c">
+    <li><g:link controller="consulta" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="consulta" action="create" params="['doctor.id': doctor?.id]">${message(code: 'default.add.label', args: [message(code: 'doctor.consulta.label', default: 'Consulta')])}</g:link>
+</li>
+</ul>
+
 </div>
 

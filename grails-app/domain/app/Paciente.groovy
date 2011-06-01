@@ -10,6 +10,9 @@ class Paciente {
     String correo
     Date dateCreated
     Date lastUpdated
+    Set consulta
+
+    static hasMany = [consulta:Consulta]
 
     static constraints = {
         expediente(maxSize:64,blank:false,unique:true)
@@ -19,6 +22,7 @@ class Paciente {
         fechaNacimiento()
         esHombre()
         correo(maxSize:128,nullable:true)
+        consulta(nullable:true)
     }
 
     String toString() {

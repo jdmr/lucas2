@@ -5,9 +5,11 @@ class Doctor {
     String nombre
     String apellidoPaterno
     String apellidoMaterno
-    // Hacer catalogo
     String especialidades
     String correo
+    Set consulta
+
+    static hasMany = [consulta:Consulta]
 
     static constraints = {
         cedula(maxSize:64,blank:false)
@@ -16,6 +18,7 @@ class Doctor {
         apellidoMaterno(maxSize:64,nullable:true)
         especialidades(nullable:true)
         correo(maxSize:128,nullable:true)
+        consulta(nullable:true)
     }
 
     String toString() {

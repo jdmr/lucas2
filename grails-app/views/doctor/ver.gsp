@@ -76,6 +76,17 @@
 					
 				</li>
 				</g:if>
+
+<!--                                <g:if test="${doctor?.sintomas}">
+				<li class="fieldcontain">
+					<span id="consulta-label" class="property-label"><g:message code="doctor.consulta.label" default="Consultas" /></span>
+
+						<g:each in="${doctor.consulta}" var="s">
+						<span class="property-value" aria-labelledby="consulta-label"><g:link controller="consulta" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
+						</g:each>
+
+				</li>
+				</g:if>-->
 			
 			</ol>
 			<g:form>

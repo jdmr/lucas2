@@ -9,9 +9,6 @@ class Tratamiento {
     Date termina
     Date dateCreated
     Date lastUpdated
-    Consulta consulta
-
-    static belongsTo = [consulta:Consulta]
 
     static constraints = {
         descripcion(maxSize:700,nullable:true)

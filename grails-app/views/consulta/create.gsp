@@ -28,21 +28,7 @@
 			</g:hasErrors>
 			<g:form action="save" >
 				<fieldset class="form">
-                    <div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'descripcion', 'error')} ">
-                        <label for="descripcion">
-                            <g:message code="consulta.descripcion.label" default="Descripcion" />
-                            
-                        </label>
-                        <g:textArea name="descripcion" cols="40" rows="5" maxlength="700" value="${consultaInstance?.descripcion}"/>
-                    </div>
-
-                    <div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'doctor', 'error')} required">
-                        <label for="doctor">
-                            <g:message code="consulta.doctor.label" default="Doctor" />
-                            <span class="required-indicator">*</span>
-                        </label>
-                        <g:select id="doctor" name="doctor.id" from="${app.Doctor.list()}" optionKey="id" required="" value="${consultaInstance?.doctor?.id}" class="many-to-one"/>
-                    </div>
+					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

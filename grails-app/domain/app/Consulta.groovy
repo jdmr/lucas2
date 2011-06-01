@@ -3,25 +3,23 @@ package app
 class Consulta {
     String descripcion
     Doctor doctor
-    ExamenFisico examenFisico
+    Paciente paciente
+    Set examenFisico
     Set sintomas
     Set diagnosticos
-    //Diagnostico diagnosticoPrincipal
     Set tratamientos
     Date dateCreated
     Date lastUpdated
 
-    //static belongsTo = [doctor:Doctor, diagnosticoPrincipal:Diagnostico]
-    static belongsTo = [doctor:Doctor]
+    static belongsTo = [doctor:Doctor, paciente:Paciente]
 
-    static hasMany = [diagnosticos: Diagnostico, tratamientos: Tratamiento, sintomas: Sintoma]
+    static hasMany = [diagnosticos:Diagnostico, tratamientos:Tratamiento, sintomas:Sintoma, examenFisicos:ExamenFisico]
 
     static constraints = {
-        descripcion(maxSize:700, nullable:true)
+        descripcion(maxSize:700)
         examenFisico(nullable:true)
-        sintomas()
-        //diagnosticoPrincipal(nullable:true)
-        diagnosticos()
-        tratamientos()
+        sintomas(nullable:true)
+        diagnosticos(nullable:true)
+        tratamientos(nullable:true)
     }
 }
