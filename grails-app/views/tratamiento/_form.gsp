@@ -4,7 +4,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: tratamiento, field: 'descripcion', 'error')} ">
   <label for="descripcion">
-    <g:message code="tratamiento.descripcion.label" default="Descripcion" />
+    <g:message code="tratamiento.descripcion.label" default="Descripción" />
 
   </label>
   <g:textArea name="descripcion" cols="40" rows="5" maxlength="700" value="${tratamiento?.descripcion}"/>

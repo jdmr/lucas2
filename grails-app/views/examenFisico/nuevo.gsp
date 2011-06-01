@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'examenFisico.label', default: 'ExamenFisico')}" />
+		<g:set var="entityName" value="${message(code: 'examenFisico.label', default: 'Examen Fisico')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
                 <script src="${resource(dir:'js/libs',file:'jquery-1.6.1.min.js')}"></script>
 	</head>
