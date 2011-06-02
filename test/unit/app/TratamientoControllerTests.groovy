@@ -22,7 +22,7 @@ class TratamientoControllerTests {
                 descripcion: "TEST$i"
             )
         }
-        mockDomain(Tratamiento, tratamiento)
+        mockDomain(Tratamiento, tratamientos)
 
         def model = controller.lista()
 
