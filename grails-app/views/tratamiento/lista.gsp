@@ -46,7 +46,7 @@
 					
 						<td>${fieldValue(bean: tratamiento, field: "medicina")}</td>
 					
-                                                <td>${fieldValue(bean: tratamiento, field: "dosis")}</td>
+						<td>${fieldValue(bean: tratamiento, field: "dosis")}</td>
 					
 						<td>${fieldValue(bean: tratamiento, field: "frecuencia")}</td>
 					

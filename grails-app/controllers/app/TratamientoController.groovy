@@ -3,7 +3,7 @@ package app
 import grails.converters.JSON
 
 class TratamientoController {
-    
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -28,7 +28,7 @@ class TratamientoController {
             redirect(action: "ver", id: tratamiento.id)
         }
         else {
-            log.debug("Hubo errores al intentar crear al diagnostico ${tratamiento.errors}")
+            log.debug("Hubo errores al intentar crear el tratamiento ${tratamiento.errors}")
             render(view: "nuevo", model: [tratamiento: tratamiento])
         }
     }
@@ -62,7 +62,7 @@ class TratamientoController {
                 def version = params.version.toLong()
                 if (tratamiento.version > version) {
 
-                    tratamiento.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'tratamiento.label', default: 'Tratamiento')] as Object[], "Another user has updated this diagnostic while you were editing")
+                    tratamiento.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'tratamiento.label', default: 'Tratamiento')] as Object[], "Another user has updated this tratamient while you were editing")
                     render(view: "edita", model: [tratamiento: tratamiento])
                     return
                 }

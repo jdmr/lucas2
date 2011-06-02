@@ -77,15 +77,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${tratamiento?.consulta}">
-				<li class="fieldcontain">
-					<span id="consulta-label" class="property-label"><g:message code="tratamiento.consulta.label" default="Consulta" /></span>
-					
-						<span class="property-value" aria-labelledby="consulta-label"><g:link controller="consulta" action="show" id="${tratamiento?.consulta?.id}">${tratamiento?.consulta?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${tratamiento?.dateCreated}">
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="tratamiento.dateCreated.label" default="Date Created" /></span>
