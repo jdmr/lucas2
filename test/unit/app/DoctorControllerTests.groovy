@@ -1,7 +1,10 @@
 package app
 
+
+
 import org.junit.*
 import grails.test.mixin.*
+
 
 @TestFor(DoctorController)
 @Mock(Doctor)
@@ -9,116 +12,148 @@ class DoctorControllerTests {
 
 
     @Test
-    void indexDebieraHacerRedirectALista() {
+    void testIndex() {
         controller.index()
-        assert "/doctor/lista" == response.redirectedUrl
+        assert "/doctor/list" == response.redirectedUrl
     }
 
     @Test
-    void debieraMostrarListaDeDoctors() {
-        def doctors = []
-        for(i in 1..20) {
-            doctors << new Doctor(
-                cedula: "TEST$i"
-                ,nombre: "TEST$i"
-                ,apellidoPaterno: "TEST$i"
-                ,apellidoMaterno: "TEST$i"
-                ,especialidades: 'TEST1,TEST2,TEST3'
-            )
-        }
-        mockDomain(Doctor, doctors)
+    void testList() {
 
-        def model = controller.lista()
+        def model = controller.list()
 
-        assert model.doctors.size() == 10
-        assert model.totalDeDoctors == 20
+        assert model.doctorInstanceList.size() == 0
+        assert model.doctorInstanceTotal == 0
+
     }
 
     @Test
-    void debieraCrearUnDoctor() {
-        def model = controller.nuevo()
-        assert model.doctor != null
+    void testCreate() {
+       def model = controller.create()
 
-        params.cedula = 'TEST1'
-        params.nombre = 'TEST1'
-        params.apellidoPaterno = 'TEST'
-        params.apellidoMaterno = 'TEST'
-        params.especialidades = 'TEST1,TEST2,TEST3'
+       assert model.doctorInstance != null
 
-        controller.crea()
-        assert '/doctor/ver/1' == response.redirectedUrl
+
     }
 
     @Test
-    void debieraVerDoctor() {
-        def doctors = []
-        for(i in 1..2) {
-            doctors << new Doctor(
-                id:i,
-                ,version:1
-                ,cedula: "TEST$i"
-                ,nombre: "TEST$i"
-                ,apellidoPaterno: "TEST$i"
-                ,apellidoMaterno: "TEST$i"
-                ,especialidades: 'TEST1,TEST2,TEST3'
-            )
-        }
-        mockDomain(Doctor, doctors)
+    void testSave() {
+        controller.save()
 
-        params.id = 1
-        def model = controller.ver()
-        assert model.doctor.cedula == 'TEST1'
+        assert model.doctorInstance != null
+        assert view == '/doctor/create'
+
+        // TODO: Populate valid properties
+
+        controller.save()
+
+        assert response.redirectedUrl == '/doctor/show/1'
+        assert controller.flash.message != null
+        assert Doctor.count() == 1
+    }
+
+
+    @Test
+    void testShow() {
+        controller.show()
+
+        assert flash.message != null
+        assert response.redirectedUrl == '/doctor/list'
+
+
+        def doctor = new Doctor()
+
+        // TODO: populate domain properties
+
+        assert doctor.save() != null
+
+        params.id = doctor.id
+
+        def model = controller.show()
+
+        assert model.doctorInstance == doctor
     }
 
     @Test
-    void debieraActualizarDoctor() {
-        def doctors = []
-        for(i in 1..2) {
-            doctors << new Doctor(
-                id:i,
-                ,version:1
-                ,cedula: "TEST$i"
-                ,nombre: "TEST$i"
-                ,apellidoPaterno: "TEST$i"
-                ,apellidoMaterno: "TEST$i"
-                ,especialidades: 'TEST1,TEST2,TEST3'
-            )
-        }
-        mockDomain(Doctor, doctors)
+    void testEdit() {
+        controller.edit()
 
-        params.id = 1
-        def model = controller.edita()
-        assert model.doctor.nombre == 'TEST1'
-        
-        params.id = 1
-        params.nombre = 'PRUEBA'
-        model = controller.actualiza()
-        assert '/doctor/ver/1' == response.redirectedUrl
+        assert flash.message != null
+        assert response.redirectedUrl == '/doctor/list'
+
+
+        def doctor = new Doctor()
+
+        // TODO: populate valid domain properties
+
+        assert doctor.save() != null
+
+        params.id = doctor.id
+
+        def model = controller.edit()
+
+        assert model.doctorInstance == doctor
     }
-    
+
     @Test
-    void debieraEliminarDoctor() {
-        def doctors = []
-        for(i in 1..2) {
-            doctors << new Doctor(
-                id:i,
-                ,version:1
-                ,cedula: "TEST$i"
-                ,nombre: "TEST$i"
-                ,apellidoPaterno: "TEST$i"
-                ,apellidoMaterno: "TEST$i"
-                ,especialidades: 'TEST1,TEST2,TEST3'
-            )
-        }
-        mockDomain(Doctor, doctors)
+    void testUpdate() {
 
-        params.id = 1
-        def model = controller.edita()
-        assert model.doctor.nombre == 'TEST1'
-        
-        params.id = 1
-        controller.elimina()
-        assert '/doctor/lista' == response.redirectedUrl
+        controller.update()
+
+        assert flash.message != null
+        assert response.redirectedUrl == '/doctor/list'
+
+        response.reset()
+
+
+        def doctor = new Doctor()
+
+        // TODO: populate valid domain properties
+
+        assert doctor.save() != null
+
+        // test invalid parameters in update
+        params.id = doctor.id
+
+        controller.update()
+
+        assert view == "/doctor/edit"
+        assert model.doctorInstance != null
+
+        doctor.clearErrors()
+
+        // TODO: populate valid domain form parameter
+        controller.update()
+
+        assert response.redirectedUrl == "/doctor/show/$doctor.id"
+        assert flash.message != null
     }
+
+    @Test
+    void testDelete() {
+        controller.delete()
+
+        assert flash.message != null
+        assert response.redirectedUrl == '/doctor/list'
+
+        response.reset()
+
+        def doctor = new Doctor()
+
+        // TODO: populate valid domain properties
+        assert doctor.save() != null
+        assert Doctor.count() == 1
+
+        params.id = doctor.id
+
+        controller.delete()
+
+        assert Doctor.count() == 0
+        assert Doctor.get(doctor.id) == null
+        assert response.redirectedUrl == '/doctor/list'
+
+
+    }
+
 
 }

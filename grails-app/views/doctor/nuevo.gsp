@@ -5,7 +5,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'doctor.label', default: 'Doctor')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-                <script src="${resource(dir:'js/libs',file:'jquery-1.6.1.min.js')}"></script>
 	</head>
 	<body>
 		<a href="#create-doctor" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -20,9 +19,9 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${doctor}">
+			<g:hasErrors bean="${doctorInstance}">
 			<ul class="errors" role="alert">
-				<g:eachError bean="${doctor}" var="error">
+				<g:eachError bean="${doctorInstance}" var="error">
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>
@@ -32,14 +31,9 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="nuevo" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
 		</div>
-                <script type="text/javascript">
-                $(document).ready(function() {
-                  $('input#cedula').focus();
-                });
-                </script>
 	</body>
 </html>

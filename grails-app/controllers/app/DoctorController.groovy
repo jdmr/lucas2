@@ -11,8 +11,8 @@ class DoctorController {
     }
 
     def lista = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [doctors: Doctor.list(params), totalDeDoctors: Doctor.count()]
+	params.max = Math.min(params.max ? params.int('max') : 10, 100)
+	[doctors: Doctor.list(params), totalDeDoctors: Doctor.count()]
     }
 
     def nuevo = {
@@ -28,8 +28,8 @@ class DoctorController {
             redirect(action: "ver", id: doctor.id)
         }
         else {
-            log.debug("Hubo errores al intentar crear al doctor ${doctor.errors}")
-            render(view: "nuevo", model: [doctor: doctor])
+            log.debug("Hubo errores al intentar crear el doctor ${doctor.errors}")
+            render(view: "create", model: [doctor: doctor])
         }
     }
 
@@ -61,7 +61,7 @@ class DoctorController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (doctor.version > version) {
-
+                    
                     doctor.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'doctor.label', default: 'Doctor')] as Object[], "Another user has updated this Doctor while you were editing")
                     render(view: "edita", model: [doctor: doctor])
                     return

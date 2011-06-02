@@ -76,17 +76,17 @@
 					
 				</li>
 				</g:if>
-
-<!--                                <g:if test="${doctor?.sintomas}">
+			
+				<g:if test="${doctor?.consulta}">
 				<li class="fieldcontain">
-					<span id="consulta-label" class="property-label"><g:message code="doctor.consulta.label" default="Consultas" /></span>
-
-						<g:each in="${doctor.consulta}" var="s">
-						<span class="property-value" aria-labelledby="consulta-label"><g:link controller="consulta" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
+					<span id="consulta-label" class="property-label"><g:message code="doctor.consulta.label" default="Consulta" /></span>
+					
+						<g:each in="${doctor.consulta}" var="c">
+						<span class="property-value" aria-labelledby="consulta-label"><g:link controller="consulta" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
 						</g:each>
-
+					
 				</li>
-				</g:if>-->
+				</g:if>
 			
 			</ol>
 			<g:form>

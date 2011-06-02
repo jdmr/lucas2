@@ -58,10 +58,10 @@
 	
 <ul class="one-to-many">
 <g:each in="${doctor?.consulta?}" var="c">
-    <li><g:link controller="consulta" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="consulta" action="ver" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
-<g:link controller="consulta" action="create" params="['doctor.id': doctor?.id]">${message(code: 'default.add.label', args: [message(code: 'doctor.consulta.label', default: 'Consulta')])}</g:link>
+<g:link controller="consulta" action="nuevo" params="['doctor.id': doctor?.id]">${message(code: 'default.add.label', args: [message(code: 'consulta.label', default: 'Consulta')])}</g:link>
 </li>
 </ul>
 
