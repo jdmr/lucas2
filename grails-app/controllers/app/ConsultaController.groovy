@@ -7,119 +7,122 @@ class ConsultaController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
-        redirect(action: "list", params: params)
+        redirect(action: "lista", params: params)
     }
 
-	def list = {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[consultaInstanceList: Consulta.list(params), consultaInstanceTotal: Consulta.count()]
-	}
-
-    def create = {
-        def consultaInstance = new Consulta()
-        consultaInstance.properties = params
-        return [consultaInstance: consultaInstance]
+    def lista = {
+	params.max = Math.min(params.max ? params.int('max') : 10, 100)
+	[consultas: Consulta.list(params), totalDeConsultas: Consulta.count()]
     }
 
-    def save = {
-        def consultaInstance = new Consulta(params)
-        if (consultaInstance.save(flush: true)) {
-            flash.message = message(code: 'default.created.message', args: [message(code: 'consulta.label', default: 'Consulta'), consultaInstance.id])
-            redirect(action: "show", id: consultaInstance.id)
+    def nuevo = {
+        def consulta = new Consulta()
+        consulta.properties = params
+        return [consulta: consulta]
+    }
+
+    def crea = {
+        def consulta = new Consulta(params)
+        if (consulta.save(flush: true)) {
+            flash.message = message(code: 'default.created.message', args: [message(code: 'consulta.label', default: 'Consulta'), consulta.id])
+            redirect(action: "ver", id: consulta.id)
         }
         else {
-            render(view: "create", model: [consultaInstance: consultaInstance])
+            render(view: "nuevo", model: [consulta: consulta])
         }
     }
 
-    def show = {
-        def consultaInstance = Consulta.get(params.id)
-        if (!consultaInstance) {
+    def ver = {
+        def consulta = Consulta.get(params.id)
+        if (!consulta) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-            redirect(action: "list")
+            redirect(action: "lista")
         }
         else {
-            [consultaInstance: consultaInstance]
+            [consulta: consulta]
         }
     }
 
-    def edit = {
+    def edita = {
         log.debug("Editando consulta")
-        def consultaInstance = Consulta.get(params.id)
-        if (!consultaInstance) {
+        def consulta = Consulta.get(params.id)
+        if (!consulta) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-            redirect(action: "list")
+            redirect(action: "lista")
         }
+//        else {
+//            def sintomas = new StringBuilder()
+//            for(sintoma in consulta.sintomas) {
+//                if (sintomas.length > 0) {
+//                    sintomas.append(",")
+//                }
+//                sintomas.append(sintoma.nombre)
+//            }
+//            return [consulta: consulta, sintomas: sintomas.toString()]
+//        }
         else {
-            def sintomas = new StringBuilder()
-            for(sintoma in consultaInstance.sintomas) {
-                if (sintomas.length > 0) {
-                    sintomas.append(",")
-                }
-                sintomas.append(sintoma.nombre)
-            }
-            return [consultaInstance: consultaInstance, sintomas: sintomas.toString()]
+            [consulta: consulta]
         }
     }
 
-    def update = {
-        def consultaInstance = Consulta.get(params.id)
-        if (consultaInstance) {
+    def actualiza = {
+        def consulta = Consulta.get(params.id)
+        if (consulta) {
             if (params.version) {
                 def version = params.version.toLong()
-                if (consultaInstance.version > version) {
+                if (consulta.version > version) {
                     
-                    consultaInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'consulta.label', default: 'Consulta')] as Object[], "Another user has updated this Consulta while you were editing")
-                    render(view: "edit", model: [consultaInstance: consultaInstance])
+                    consulta.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'consulta.label', default: 'Consulta')] as Object[], "Another user has updated this Consulta while you were editing")
+                    render(view: "edita", model: [consulta: consulta])
                     return
                 }
             }
-            consultaInstance.properties = params
-            if (!consultaInstance.hasErrors() && consultaInstance.save(flush: true)) {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'consulta.label', default: 'Consulta'), consultaInstance.id])
-                redirect(action: "show", id: consultaInstance.id)
+            consulta.properties = params
+            if (!consulta.hasErrors() && consulta.save(flush: true)) {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'consulta.label', default: 'Consulta'), consulta.id])
+                redirect(action: "ver", id: consulta.id)
             }
             else {
-                render(view: "edit", model: [consultaInstance: consultaInstance])
+                render(view: "edita", model: [consulta: consulta])
             }
         }
         else {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-            redirect(action: "list")
+            redirect(action: "lista")
         }
     }
 
-    def delete = {
-        def consultaInstance = Consulta.get(params.id)
-        if (consultaInstance) {
+    def elimina = {
+        def consulta = Consulta.get(params.id)
+        if (consulta) {
             try {
-                consultaInstance.delete(flush: true)
+                consulta.delete(flush: true)
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-                redirect(action: "list")
+                redirect(action: "lista")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-                redirect(action: "show", id: params.id)
+                redirect(action: "ver", id: params.id)
             }
         }
         else {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'consulta.label', default: 'Consulta'), params.id])
-            redirect(action: "list")
+            redirect(action: "lista")
         }
     }
 
-    def sintomas = {
-        log.info("Params: $params")
-        def resultado = []
-
-        def lista = Sintoma.findAllByNombreIlike("%${params.q}%")
-        for(sintoma in lista) {
-            resultado << [id:sintoma.id,value:sintoma.nombre]
-        }
-
-        log.info("Resultado: ${resultado as grails.converters.JSON}")
-
-        render resultado as grails.converters.JSON
-    }
+//    def sintomas = {
+//        log.info("Params: $params")
+//        def resultado = []
+//
+//        def lista = Sintoma.findAllByNombreIlike("%${params.q}%")
+//        for(sintoma in lista) {
+//            resultado << [id:sintoma.id,value:sintoma.nombre]
+//        }
+//
+//        log.info("Resultado: ${resultado as grails.converters.JSON}")
+//
+//        render resultado as grails.converters.JSON
+//    }
 
 }

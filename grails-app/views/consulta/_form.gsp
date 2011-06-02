@@ -1,6 +1,21 @@
 <%@ page import="app.Consulta" %>
 
 
+<div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'paciente', 'error')} required">
+	<label for="paciente">
+		<g:message code="consulta.paciente.label" default="Paciente" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="paciente" name="paciente.id" from="${app.Paciente.list()}" optionKey="id" required="" value="${consultaInstance?.paciente?.id}" class="many-to-one"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'doctor', 'error')} required">
+	<label for="doctor">
+		<g:message code="consulta.doctor.label" default="Doctor" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="doctor" name="doctor.id" from="${app.Doctor.list()}" optionKey="id" required="" value="${consultaInstance?.doctor?.id}" class="many-to-one"/>
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
@@ -34,14 +49,6 @@
 	<g:select name="tratamientos" from="${app.Tratamiento.list()}" multiple="multiple" optionKey="id" size="5" value="${consultaInstance?.tratamientos*.id}" class="many-to-many"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'doctor', 'error')} required">
-	<label for="doctor">
-		<g:message code="consulta.doctor.label" default="Doctor" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="doctor" name="doctor.id" from="${app.Doctor.list()}" optionKey="id" required="" value="${consultaInstance?.doctor?.id}" class="many-to-one"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'examenFisicos', 'error')} ">
 	<label for="examenFisicos">
 		<g:message code="consulta.examenFisicos.label" default="Examen Fisicos" />
@@ -50,11 +57,5 @@
 	<g:select name="examenFisicos" from="${app.ExamenFisico.list()}" multiple="multiple" optionKey="id" size="5" value="${consultaInstance?.examenFisicos*.id}" class="many-to-many"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: consultaInstance, field: 'paciente', 'error')} required">
-	<label for="paciente">
-		<g:message code="consulta.paciente.label" default="Paciente" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="paciente" name="paciente.id" from="${app.Paciente.list()}" optionKey="id" required="" value="${consultaInstance?.paciente?.id}" class="many-to-one"/>
-</div>
+
 
